@@ -5,7 +5,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
 
+    $('td').click(function(){
+        console.log( "click!" );
+
+          $('#times').load('../time');
+            $('#info').show();
+        });
+
+    });
+</script>
     <style type="text/css">
 
         ::selection { background-color: #E13300; color: white; }
@@ -72,7 +85,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 4px;
             height:50px;
         }
-
+        #times table td{
+            padding:0px;
+            height: 30px;
+            min-width: 30px;
+            border-radius: 0px;
+        }
         tr td:hover{
             background-color: whitesmoke;
             cursor: pointer;
@@ -91,12 +109,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             text-decoration: unset;
             color: unset;
         }
+        .form-item{
+            padding:10px;
+            background-color: whitesmoke;
+            color: #474747;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
 
 <div id="container">
-    <h1>GlobalRose - Calendar App!</h1>
+    <h1>GlobalRose - Support Scheduling </h1>
     <div id="body">
 <table>
     <thead class="month-heading">
@@ -180,8 +206,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </table><div class="container" style="float:right;
     position: absolute;
     top: 70px;
-    left: 60%;">
-        <h1>Selected Time Slots Available:</h1></div>
+    left: 40%;">
+        <h1>Selected Time Slots Available:</h1>
+        <div class="" id ="times"></div>
+
+        <div class="form-group" id="info" style="display: none;
+    position: relative;"><br>
+            <h1>Please Fill out the following info:</h1>
+            <form>
+                <input type="text" name="name" class="form-item" placeholder="Name">
+                <input type="text" name="phone" class="form-item" placeholder="Phone Number"><br>
+                <textarea cols="53" row="20" name="subject" class="form-item" placeholder="Describe your inquiry"></textarea><br>
+                <button type="submit" class="form-item">Submit</button>
+            </form>
+        </div>
+
+        </div>
     </div>
 
     <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>

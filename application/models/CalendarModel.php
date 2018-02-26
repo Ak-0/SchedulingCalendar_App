@@ -5,7 +5,7 @@
  * Date: 2018-02-25
  * Time: 12:53 AM
  */
-class CalendarModel  extends CI_Model {
+class CalendarModel extends CI_Model {
 
     public function get_month($month,$year) {
         //YEAR -> EDIT THIS

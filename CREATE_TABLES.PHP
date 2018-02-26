@@ -6,8 +6,8 @@
  * Time: 12:07 AM
  */
 $dsn = "mysql:host=localhost;dbname=Calendar_App;charset=utf8mb4";
-$user = 'root';
-$pass = 'root';
+$user = 'user';
+$pass = 'toor';
 $pdo = new PDO($dsn, $user, $pass);
 $table="dates";
 
@@ -28,12 +28,16 @@ $end=date("Y-m-d", $EndDate);
 $newday= $start;
 $id="1";
 while($newday < $end){
-    $newday = date("Y-m-d", strtotime("+1 day", strtotime($newday)));
-    $result = $pdo->query("INSERT INTO $table SET date ='$newday'");
-    $result->execute();
-    echo 'date '.$id.' inserted';
 
+        $result = $pdo->query("UPDATE $table SET date = '$newday' WHERE id = $id ");
+        $result->execute();
+
+    echo 'date '.$id.' inserted';
+    $newday = date("Y-m-d", strtotime("+1 day", strtotime($newday)));
+    $id++;
 }
+
+
 
 //display message
 echo "all dates are inserted";

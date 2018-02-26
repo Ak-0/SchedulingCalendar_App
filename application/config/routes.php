@@ -53,3 +53,4 @@ $route['default_controller'] = 'Calendar';
 //$route['404_override'] = 'index';
 $route['translate_uri_dashes'] = TRUE;
 $route['month/(:any)'] = 'Calendar/month/$1';
+$route['time'] = 'Time';
