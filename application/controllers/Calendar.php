@@ -26,14 +26,12 @@ class Calendar extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index()
+    public function index($year = '2018')
     {
 
 
         $month = date('Y-m-d');
 
-
-        $year = '2018';
 
         $days = $this->CalendarModel->get_month($month,$year);
         $data['weeks'] = $this->get_weeks($days);
@@ -73,7 +71,7 @@ class Calendar extends CI_Controller {
 
     }
 
-    public function month($month){
+    public function month($month, $year = 2018){
 
         if($month = $this->uri->segment('2')){
 
@@ -81,7 +79,6 @@ class Calendar extends CI_Controller {
             $month = $month->format('Y-m-d');
         }
 
-    $year = '2018';
 
 
     $days = $this->CalendarModel->get_month($month,$year);

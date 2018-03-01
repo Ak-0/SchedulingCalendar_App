@@ -13,7 +13,7 @@ class CalendarModel extends CI_Model {
         // MONTH BEING PASSED FROM CONTROLLER
         $month = date('m', strtotime($month));
         //MYSQL  QUERY THAT RETURNS THE DAYS FOR THE MONTH
-        $result = $this->db->query("SELECT date FROM dates WHERE date LIKE '".$year."-".$month."%';");
+        $result = $this->db->query("SELECT id, date FROM dates WHERE date LIKE '".$year."-".$month."%';");
 
         $days = $result->result_array();
         return $days;

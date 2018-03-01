@@ -8,14 +8,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
 <script>
     $( document ).ready(function() {
-        console.log( "ready!" );
+        console.log( "calendar loaded" );
 
-    $('td').click(function(){
-        console.log( "click!" );
-
-          $('#times').load('../time');
+    $('td.day').click(function(){
+        console.log( "clicked day" );
+        $('td.day').removeClass('selected');
+        $(this).addClass('selected');
+        var dateid = $(this).attr('id');
+          $('#times').load('../time', {dateid: dateid});
             $('#info').show();
+            $("input[name='day']").attr('value',dateid);
         });
+
 
     });
 </script>
@@ -25,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ::-moz-selection { background-color: #E13300; color: white; }
 
         body {
-            background-color: #fff;
+            background-color: gainsboro;
             margin: 10px;
             font: 13px/20px normal Helvetica, Arial, sans-serif;
             color: #4F5155;
@@ -59,6 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         #body {
+            background-color: whitesmoke;
             margin: 0 10px 0 10px;
         }
 
@@ -75,6 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             margin: 10px;
             border: 1px solid #D0D0D0;
             box-shadow: 0 0 8px #D0D0D0;
+            background-color: whitesmoke;
         }
 
         table, td{
@@ -91,18 +97,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             min-width: 30px;
             border-radius: 0px;
         }
-        tr td:hover{
-            background-color: whitesmoke;
+        tr td:hover, .selected{
+            background-color: darkgray;
             cursor: pointer;
             text-decoration: underline;
             color: #0d6aad;
 
         }
         .disabled, .disabled:hover{
-            background-color: whitesmoke;
+            background-color: lightgray;
             cursor: not-allowed !important;
             color: unset;
             text-decoration: unset;
+        }
+        #info-area{
+            float:right;
+            position: absolute;
+            top: 70px;
+            left: 40%;
+        }
+
+        @media screen and (max-width: 1250px){
+            #info-area{
+                position: unset !important;
+                float:unset !important;
+                top: unset !important;
+                left:unset !important;
+            }
+
         }
         thead td:hover{
             background-color: transparent;
@@ -154,33 +176,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php
     foreach($weeks as $w=>$week){
         foreach($week as $k=>$day) {
+            $dayid = $day['id'];
+            $disabled = $day['date']<date('Y-m-d')?'disabled':'';
             $dayofmonth = date('j',strtotime($day['date']));
             $date = date('w',strtotime($day['date']));
+
             if ($w == 0 && $k == 0)
             {
                 switch($date){
                     case '1':
-                        echo'<td>'. $dayofmonth .' </td>';
+                        echo'<td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth .' </td>';
 
                         break;
                     case '2':
-                        echo'<td class="disabled"></td><td>'. $dayofmonth .' </td>';
+                        echo'<td class="disabled"></td><td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth .' </td>';
 
                         break;
                     case '3':
-                        echo'<td class="disabled"></td><td class="disabled"></td><td>'. $dayofmonth .' </td>';
+                        echo'<td class="disabled"></td><td class="disabled"></td><td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth .' </td>';
                         break;
                     case '4':
-                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td>'. $dayofmonth .' </td>';
+                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth .' </td>';
                         break;
                     case '5':
-                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td>'. $dayofmonth.' </td>';
+                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth.' </td>';
                         break;
                     case '6':
-                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td>'. $dayofmonth .' </td>';
+                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="day '.$disabled.'" id="' .$dayid.'">'. $dayofmonth .' </td>';
                         break;
                     case '0':
-                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled">'. $dayofmonth .' </td>';
+                        echo'<td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled"></td><td class="disabled" class="day '.$disabled.'" id="' .$dayid. '">'. $dayofmonth .' </td>';
                         echo'</tr><Tr>';
                         break;
 
@@ -189,12 +214,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
             elseif ($date == 0) {
-                echo'<td class="disabled">'. $dayofmonth .' </td>';
+                echo'<td class="disabled" id="'.$dayid.'">'. $dayofmonth .' </td>';
                 echo '</tr><Tr>';
 
             }
             else {
-                echo'<td>'. $dayofmonth .' </td>';
+                echo('<td class="day '.$disabled.'" id="'.$dayid.'">'. $dayofmonth .' </td>');
 
             }
         }
@@ -203,17 +228,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     ?>
 
 
-</table><div class="container" style="float:right;
-    position: absolute;
-    top: 70px;
-    left: 40%;">
+</table><div id="info-area" class="container" style="">
         <h1>Selected Time Slots Available:</h1>
         <div class="" id ="times"></div>
 
         <div class="form-group" id="info" style="display: none;
     position: relative;"><br>
             <h1>Please Fill out the following info:</h1>
-            <form>
+            <form action="/info" method="post">
+                <input type="hidden" name="day" id="<?php $date_id?>">
+                <input type="hidden" name="time">
                 <input type="text" name="name" class="form-item" placeholder="Name">
                 <input type="text" name="phone" class="form-item" placeholder="Phone Number"><br>
                 <textarea cols="53" row="20" name="subject" class="form-item" placeholder="Describe your inquiry"></textarea><br>
