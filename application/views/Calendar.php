@@ -239,8 +239,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input type="hidden" name="day" id="<?php $date_id?>">
                 <input type="hidden" name="time">
                 <input type="text" name="name" class="form-item" placeholder="Name">
-                <input type="text" name="phone" class="form-item" placeholder="Phone Number"><br>
-                <textarea cols="53" row="20" name="subject" class="form-item" placeholder="Describe your inquiry"></textarea><br>
+                <input type="number" name="phone" class="form-item" placeholder="Phone Number"><br>
+                <input type="email" name="email" class="form-item" placeholder="E-Mail">
+                <select name="subject" class="form-item" value="Describe your inquiry">
+                    <option selected><hr></option>
+                    <option>Marriage Date Inquiry</option>
+                    <option>Family Event Planning</option>
+                    <option>Other...</option>
+                </select>
+                <br>
                 <button type="submit" class="form-item">Submit</button>
             </form>
         </div>

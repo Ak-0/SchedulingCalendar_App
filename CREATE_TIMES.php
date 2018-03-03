@@ -23,7 +23,7 @@ $result->closeCursor();
 /** @var int $i */
 for($i=0; $i<$count; $i++) {
     echo 'Time '.$i.': '.$arr[$i].'Being Inserted..<br>';
-    $arr[$i] = $date->add(new DateInterval("P0Y0DT0H30M"))->format('h:i');
+    $arr[$i] = $date->add(new DateInterval("P0Y0DT0H30M"))->format('H:i');
     $insert = $pdo->prepare("INSERT INTO times 
                                     (time) 
                                     VALUES ('$arr[$i]');
