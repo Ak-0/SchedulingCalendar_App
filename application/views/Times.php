@@ -1,20 +1,5 @@
-<script>
-    $( document ).ready(function() {
-        console.log( "times loaded" );
+<script type="application/javascript" src="<?php echo base_url().'js/script.js'?>"></script>
 
-
-    $('td.time').click(function() {
-
-            console.log("clicked time");
-            $('td.time').removeClass('selected');
-            $(this).addClass('selected');
-            var timeid = $(this).attr('id');
-            $("input[name='time']").attr('value', timeid);
-
-    });
-
-});
-</script>
 <?php
 /**
  * Created by PhpStorm.

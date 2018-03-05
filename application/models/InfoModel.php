@@ -13,10 +13,11 @@ class InfoModel extends CI_Model {
     }
 
 
-    public function makeRelation($date, $time){
+    public function makeRelation($date, $time, $info){
         $exists = $this->checkRelation($date,$time);
+
         if (!$exists){
-            $this->db->query('INSERT INTO info (id_date, id_time) VALUES ('.$date.', '.$time.')');
+            $this->db->query('INSERT INTO info (id_date, id_time, name, phone, notes, email, ip) VALUES ('.$date.', '.$time.',"'.$info['name'].'","'.$info['phone'].'","'.$info['notes'].'","'.$info['email'].'","'.$info['ip'].'")');
             return 'success';
         }
         else {return 'error';}
@@ -34,6 +35,10 @@ class InfoModel extends CI_Model {
         }
 
         return $exists;
+    }
+
+    public function checkIP(){
+
     }
 
 }

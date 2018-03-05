@@ -6,140 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
-<script>
-    $( document ).ready(function() {
-        console.log( "calendar loaded" );
-
-    $('td.day').click(function(){
-        console.log( "clicked day" );
-        $('td.day').removeClass('selected');
-        $(this).addClass('selected');
-        var dateid = $(this).attr('id');
-          $('#times').load('../time', {dateid: dateid});
-            $('#info').show();
-            $("input[name='day']").attr('value',dateid);
-        });
-
-
-    });
-</script>
-    <style type="text/css">
-
-        ::selection { background-color: #E13300; color: white; }
-        ::-moz-selection { background-color: #E13300; color: white; }
-
-        body {
-            background-color: gainsboro;
-            margin: 10px;
-            font: 13px/20px normal Helvetica, Arial, sans-serif;
-            color: #4F5155;
-        }
-
-        a {
-            color: #003399;
-            background-color: transparent;
-            font-weight: normal;
-        }
-
-        h1 {
-            color: #444;
-            background-color: transparent;
-            border-bottom: 1px solid #D0D0D0;
-            font-size: 19px;
-            font-weight: normal;
-            margin: 0 0 14px 0;
-            padding: 14px 15px 10px 15px;
-        }
-
-        code {
-            font-family: Consolas, Monaco, Courier New, Courier, monospace;
-            font-size: 12px;
-            background-color: #f9f9f9;
-            border: 1px solid #D0D0D0;
-            color: #002166;
-            display: block;
-            margin: 0px 0 14px 0;
-            padding: 12px 10px 12px 10px;
-        }
-
-        #body {
-            background-color: whitesmoke;
-            margin: 0 10px 0 10px;
-        }
-
-        p.footer {
-            text-align: right;
-            font-size: 11px;
-            border-top: 1px solid #D0D0D0;
-            line-height: 32px;
-            padding: 0 10px 0 10px;
-            margin: 20px 0 0 0;
-        }
-
-        #container {
-            margin: 10px;
-            border: 1px solid #D0D0D0;
-            box-shadow: 0 0 8px #D0D0D0;
-            background-color: whitesmoke;
-        }
-
-        table, td{
-            border: 1px solid black;
-            border-style: groove;
-            border-radius: 4.2px;
-            min-width:50px;
-            padding: 4px;
-            height:50px;
-        }
-        #times table td{
-            padding:0px;
-            height: 30px;
-            min-width: 30px;
-            border-radius: 0px;
-        }
-        tr td:hover, .selected{
-            background-color: darkgray;
-            cursor: pointer;
-            text-decoration: underline;
-            color: #0d6aad;
-
-        }
-        .disabled, .disabled:hover{
-            background-color: lightgray;
-            cursor: not-allowed !important;
-            color: unset;
-            text-decoration: unset;
-        }
-        #info-area{
-            float:right;
-            position: absolute;
-            top: 70px;
-            left: 40%;
-        }
-
-        @media screen and (max-width: 1250px){
-            #info-area{
-                position: unset !important;
-                float:unset !important;
-                top: unset !important;
-                left:unset !important;
-            }
-
-        }
-        thead td:hover{
-            background-color: transparent;
-            text-decoration: unset;
-            color: unset;
-        }
-        .form-item{
-            padding:10px;
-            background-color: whitesmoke;
-            color: #474747;
-            border: 1px solid lightgray;
-            border-radius: 5px;
-            margin: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo base_url().'css/style.css'?>">
+    <script type="application/javascript" src="<?php echo base_url().'js/script.js'?>"></script>
 </head>
 <body>
 
@@ -238,10 +106,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <form action="/info" method="post">
                 <input type="hidden" name="day" id="<?php $date_id?>">
                 <input type="hidden" name="time">
-                <input type="text" name="name" class="form-item" placeholder="Name">
-                <input type="number" name="phone" class="form-item" placeholder="Phone Number"><br>
-                <input type="email" name="email" class="form-item" placeholder="E-Mail">
-                <select name="subject" class="form-item" value="Describe your inquiry">
+                <input type="text" required name="name" class="form-item" placeholder="Name">
+                <input type="number" required name="phone" class="form-item" placeholder="Phone Number"><br>
+                <input type="email" required name="email" class="form-item" placeholder="E-Mail">
+                <select name="notes" required class="form-item" value="Describe your inquiry">
                     <option selected><hr></option>
                     <option>Marriage Date Inquiry</option>
                     <option>Family Event Planning</option>
