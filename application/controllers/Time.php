@@ -23,10 +23,23 @@ class Time extends CI_Controller
     }
 
     public function mark_disabled_times($times, $date_id){
-        foreach ($times as $t=>$time){
-            $array[$t]['time'] =  date('h:i A',strtotime( $time->time) ) ;
-            $array[$t]['disabled'] = $this->TimesModel->get_disabled($time->id, $date_id)?1:0;
-        }
+
+        $this->load->model('CalendarModel');
+        $current_time = $this->CalendarModel->get_Date($date_id);
+
+
+        foreach ($times as $t => $time) {
+                $array[$t]['time'] = date('h:i A', strtotime($time->time));
+                $array[$t]['disabled'] = $this->TimesModel->get_disabled($time->id, $date_id) ? 1 : 0;
+
+                if($current_time){
+                    if (strtotime($time->time) < $current_time){
+                        $array[$t]['disabled'] = 1 ;
+                    }
+                }
+
+            }
+
        return  $array;
 
 

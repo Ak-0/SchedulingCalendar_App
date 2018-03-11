@@ -1,7 +1,6 @@
 $( document ).ready(function() {
     console.log( "calendar loaded" );
-
-    $('td.day').click(function(){
+    $('td.day').on( "click", function(){
         if(!($(this).hasClass('disabled')))
         {
             console.log("clicked day");
@@ -13,15 +12,6 @@ $( document ).ready(function() {
             $("input[name='day']").attr('value', dateid);
         }
     });
-    $('td.time').click(function() {
-
-        console.log("clicked time");
-        $('td.time').removeClass('selected');
-        $(this).addClass('selected');
-        var timeid = $(this).attr('id');
-        $("input[name='time']").attr('value', timeid);
-
-    });
-
-
 });
+
+

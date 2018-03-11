@@ -19,7 +19,20 @@ class CalendarModel extends CI_Model {
         return $days;
     }
 
+    public function get_Date($dateid){
 
+        $today1 = new DateTime('now',new DateTimeZone('America/New_York'));
+        $today = date('Y-m-d', $today1->getTimestamp());
+
+        $result = $this->db->query("SELECT * FROM dates WHERE id = ".$dateid." AND date = '".$today."'");
+
+        if($result->result()){
+             return $today1;
+         }
+        else{
+            return 0;
+        }
+    }
 
 
 
