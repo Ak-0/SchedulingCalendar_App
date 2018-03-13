@@ -1,6 +1,6 @@
 
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
+::selection { background-color: #474747; color: white; }
+::-moz-selection { background-color: #474747; color: white; }
 
 body {
     background-color: gainsboro;

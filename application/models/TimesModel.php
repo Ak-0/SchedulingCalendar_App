@@ -9,22 +9,29 @@
 class TimesModel extends CI_Model
     {
     public function get_times(){
-
         $times = $this->db->query("SELECT id, time FROM times ");
-
         $result = $times->result();
-
         return $result;
-
-
     }
 
     public function get_disabled($timeid, $dateid){
         $disabled = $this->db->query("SELECT id_time FROM info WHERE id_time LIKE ".trim($timeid)." AND id_date LIKE ".trim($dateid));
-
         return $disabled->result();
     }
 
-
+    /*The get_Date method should return the current time if the selected date is today's date.
+        this is used by the Time controller to mark past times as disabled.
+    */
+    public function get_Date($dateid){
+        $today1 = new DateTime('now',new DateTimeZone('America/New_York'));
+        $today = date('Y-m-d', $today1->getTimestamp());
+        $result = $this->db->query("SELECT * FROM dates WHERE id = ".$dateid." AND date = '".$today."'");
+        if($result->result()){
+            return $today1->getTimestamp();
+        }
+        else{
+            return 0;
+        }
+    }
 
 }

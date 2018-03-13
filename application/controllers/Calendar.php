@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Calendar extends CI_Controller {
     public function __construct()
     {
-
         parent::__construct();
       //  $this->load->helper('url');
         $this->load->model('CalendarModel');
@@ -27,28 +26,22 @@ class Calendar extends CI_Controller {
      */
     public function index($year = '2018')
     {
-
-
         $month = date('Y-m-d');
-
-
         $days = $this->CalendarModel->get_month($month,$year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;
+        $data['admin'] = 'false';
         $data['controller']=$this;
-
         $this->load->view('Calendar', $data);
 
-
     }
+
     public function get_weeks($days)
     {
 
         $weeks = [];
         $i=0;
         $week = [];
-
-
                 //get the day in value of number position of the week
                 //if it is on a monday
                //store the days of the week in an array
@@ -65,10 +58,9 @@ class Calendar extends CI_Controller {
                 }
         }
         array_push($weeks, $week);
-
         return $weeks;
-
     }
+
 
     public function month($month, $year = 2018){
 
@@ -78,16 +70,14 @@ class Calendar extends CI_Controller {
             $month = $month->format('Y-m-d');
         }
 
+        $days = $this->CalendarModel->get_month($month,$year);
+        $data['weeks'] = $this->get_weeks($days);
+        $data['month'] = $month;
+        $data['controller']=$this;
+        $this->load->view('Calendar', $data);
 
 
-    $days = $this->CalendarModel->get_month($month,$year);
-    $data['weeks'] = $this->get_weeks($days);
-    $data['month'] = $month;
-    $data['controller']=$this;
-    $this->load->view('Calendar', $data);
-
-
-}
+    }
 
 
 

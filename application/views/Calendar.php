@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Welcome to CodeIgniter</title>
+    <title>Globalrose - Scheduling App</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="<?php echo base_url().'css/style.css'?>">
     <script type="application/javascript" src="<?php echo base_url().'js/script.js'?>"></script>
@@ -12,7 +12,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-    <h1>GlobalRose - Support Scheduling </h1>
+    <h1><img src="<?php echo base_url().'/imgs/logo-globalrose-tm.png'?>"></h1>
+    <?php
+    if($admin == 'true'){
+
+        echo'<form action="Auth/logout" method="post"><input type="submit" value="Logout"></form>';
+
+    } ?>
     <div id="body">
 <table>
     <thead class="month-heading">
@@ -82,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
             elseif ($date == 0) {
-                echo'<td class="disabled" id="'.$dayid.'">'. $dayofmonth .' </td>';
+                echo'<td class="day disabled" id="'.$dayid.'">'. $dayofmonth .' </td>';
                 echo '</tr><Tr>';
 
             }
@@ -110,10 +116,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input type="number" required name="phone" class="form-item" placeholder="Phone Number"><br>
                 <input type="email" required name="email" class="form-item" placeholder="E-Mail">
                 <select name="notes" required class="form-item" value="Describe your inquiry">
-                    <option selected><hr></option>
-                    <option>Marriage Date Inquiry</option>
-                    <option>Family Event Planning</option>
-                    <option>Other...</option>
+                    <option disabled selected>--- Select an Item ---</option>
+                     <option>Bridal Bouquet</option>
+                    <option>Bridesmaid bouquets</option>
+                    <option>Corsages</option>
+                    <option>Centerpieces</option>
                 </select>
                 <br>
                 <button type="submit" class="form-item">Submit</button>

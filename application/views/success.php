@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-    <h1>GlobalRose - Support Scheduling </h1>
+    <h1><img src="<?php echo base_url().'/imgs/logo-globalrose-tm.png'?>"></h1>
     <div id="body">
         <table>
             <thead class="success-heading"><td>
