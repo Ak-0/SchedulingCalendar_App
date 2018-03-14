@@ -17,7 +17,11 @@ class CalendarModel extends CI_Model {
         return $days;
     }
 
+public function admin ($user, $pass){
+    $query = $this->db->query("SELECT * FROM Calendar_App.users WHERE username = '" .trim( $user ). "' AND passwd = '" . trim($pass ). "'");
+    return $query->result_array();
 
+}
 
 
 }

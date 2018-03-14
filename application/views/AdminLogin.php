@@ -25,8 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="body">
 <table>
             <form action="/auth" method="post">
-        <tr>       <td>User:</td><td> <input type="text" name="user" class="form-item"></input>
-            </td></tr><tr>      <td>Password:</td><td>  <input type="password" name="pass" class="form-item"></input>
+        <tr>       <td>User:</td><td> <input type="text" required name="user" class="form-item"></input>
+            </td></tr><tr>      <td>Password:</td><td>  <input type="password" required name="pass" class="form-item"></input>
                     </td></tr></table>
                 <input type="submit" value="Login">
             </form>

@@ -7,10 +7,8 @@
 
  */
 
-$dsn = "mysql:host=localhost;dbname=Calendar_App;charset=utf8mb4";
-$user = 'user';
-$pass = 'toor';
-$pdo = new PDO($dsn, $user, $pass);
+require_once ('PDO_link.php');
+
 
 $date = new DateTime('2018-03-01 8:30:00');
 $count = 9 * 60 / 30;

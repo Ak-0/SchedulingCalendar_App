@@ -1,12 +1,5 @@
 <?php
-$dsn = "mysql:host=localhost;dbname=Calendar_App;charset=utf8mb4";
-$user = 'user';
-$pass = 'toor';
-$pdo = new PDO($dsn, $user, $pass);
-
-$result = $pdo->prepare("CREATE TABLE IF NOT EXISTS dates (id INT(5) NOT NULL AUTO_INCREMENT, date DATE ,  PRIMARY KEY (id), UNIQUE KEY (id))");
-$result->execute();
-$result->closeCursor();
+require_once ('PDO_link.php');
 
 $Startdate="2018-01-01";
 $EndDate = strtotime("+1 year", strtotime($Startdate));

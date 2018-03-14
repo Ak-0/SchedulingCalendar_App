@@ -7,18 +7,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Globalrose - Scheduling App</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="<?php echo base_url().'css/style.css'?>">
-    <script type="application/javascript" src="<?php echo base_url().'js/script.js'?>"></script>
+    <?php
+
+    if(  $admin ){
+        echo'<div class="login">logged in as '.$admin[0]['username'].'<form action="/Auth/logout" method="post"><input type="submit" value="Logout"></form></div>';
+        echo'<script type="application/javascript" src="'. base_url().'js/admin_script.js"></script>';
+    }
+    else echo'<script type="application/javascript" src="'. base_url(). 'js/script.js"></script>';
+?>
 </head>
 <body>
 
 <div id="container">
     <h1><img src="<?php echo base_url().'/imgs/logo-globalrose-tm.png'?>"></h1>
-    <?php
-    if($admin == 'true'){
 
-        echo'<form action="Auth/logout" method="post"><input type="submit" value="Logout"></form>';
-
-    } ?>
     <div id="body">
 <table>
     <thead class="month-heading">
@@ -51,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     foreach($weeks as $w=>$week){
         foreach($week as $k=>$day) {
             $dayid = $day['id'];
-            $disabled = $day['date']<date('Y-m-d')?'disabled':'';
+        if($admin){ $disabled = '';}else { $disabled = $day['date']<date('Y-m-d')?'disabled':''; }
             $dayofmonth = date('j',strtotime($day['date']));
             $date = date('w',strtotime($day['date']));
 
@@ -103,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 </table><div id="info-area" class="container" style="">
-        <h1>Selected Time Slots Available:</h1>
+        <h1>Select a date:</h1>
         <div class="" id ="times"></div>
 
         <div class="form-group" id="info" style="display: none;

@@ -18,6 +18,7 @@ class Time extends CI_Controller
     public  function index(){
         $times = $this->TimesModel->get_times();
         $data['date_id'] = $this->input->post('dateid');
+        $data['admin'] = $this->input->post('admin');
         $data['times'] = $this->mark_disabled_times($times, $data['date_id']);
         $this->load->view('Times',$data);
     }

@@ -7,10 +7,8 @@
 
  */
 
-$dsn = "mysql:host=localhost;dbname=Calendar_App;charset=utf8mb4";
-$user = 'user';
-$pass = 'toor';
-$pdo = new PDO($dsn, $user, $pass);
+require_once ('PDO_link.php');
+
 
 
 $result = $pdo->query("CREATE TABLE IF NOT EXISTS info

@@ -8,6 +8,9 @@ class Calendar extends CI_Controller {
       //  $this->load->helper('url');
         $this->load->model('CalendarModel');
         $this->load->helper('url');
+        $this->load->library('session');
+        $this->load->helper('cookie');
+
     }
     /**
      * Index Page for this controller.
@@ -24,13 +27,13 @@ class Calendar extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index($year = '2018')
+    public function index($year = '2018', $admin = null)
     {
         $month = date('Y-m-d');
         $days = $this->CalendarModel->get_month($month,$year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;
-        $data['admin'] = 'false';
+        $data['admin'] = $admin ;
         $data['controller']=$this;
         $this->load->view('Calendar', $data);
 
@@ -73,12 +76,38 @@ class Calendar extends CI_Controller {
         $days = $this->CalendarModel->get_month($month,$year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;
+        $data['admin'] = $this->getAdmin();
         $data['controller']=$this;
         $this->load->view('Calendar', $data);
 
 
     }
 
+    public function admin(){
+
+
+        if($admin = $this->verify_login()) {
+           $this->index('2018', $admin);
+       }
+       else echo 'error';
+
+    }
+
+    public function getAdmin(){
+        return $this->verify_login();
+    }
+
+
+    public function verify_login($user = null, $pass = null){
+
+        if(  ($user =  $this->session->username) && ($pass = $this->session->userdata('password')) ){
+            $admin = $this->CalendarModel->admin($user, $pass);
+            return($admin);
+        }
+    else return 0;
+
+
+    }
 
 
 }

@@ -28,7 +28,6 @@ class Admin extends CI_Controller
 
     public function main(){
 
-        $this->load->view('Admin');
 
 
     }
