@@ -20,34 +20,45 @@ class Auth extends CI_Controller
             $pass = $this->input->post('pass');
 
         //query db for login info
-            $query = $this->db->query("SELECT * FROM users WHERE username = '" . $user . "' AND passwd = '" . $pass . "'");
-            $row = $query->result_array();
-            var_dump($row);
+           if( $query = $this->db->query("SELECT * FROM users WHERE username = '" . $user . "' AND passwd = '" . $pass . "'")->result()) {
+               var_dump($query);
+                $row = $query[0];
         //cmpare  to post the db user and pass
-            if ($row[0]['username'] == $user && $row[0]['passwd'] == $pass) {
+            if ($user === $row->username  && $pass  === $row->passwd) {
                 echo "LOG IN SUCCEEDED<br>";
-                $_SESSION['user'] = $user;
-                $_SESSION['pass'] = $pass;
+
+                $newdata = array(
+                    'username'  => $user,
+                    'password'  => $pass,
+                    'logged_in' => TRUE
+                );
+
+                $this->session->set_userdata($newdata);
+
                 //set cookie info if correct user and pass
                 setcookie("globalrose_schedule_calendar", $user, time() + 3600, '/');
                 echo "Logged in as " . $user;
-            }
+                redirect('/Calendar/admin');            }
+
+           }
+           else {
+               print "not logged in";
+           }
         }
         //redirect to correct controller/view if logged in
-        if (!empty($_SESSION['user']) && $_SESSION['user'] == "user") {
-            $data['admin']='true';
-            $this->Calendar('admin',$data);
-        }
+
         //or if not logged in print message
-        else {
-            print "not logged in";
-        }
+
     }
+
+
+
+
 
     //logout method
     public function logout(){
         //DESTROY COOKIES AND SESSION
-            if (isset($_SESSION['user']) && $_SESSION['user'] == 'user') {
+            if ($this->session->username && $this->session->password ) {
                 session_destroy();
                 if (isset($_SERVER['HTTP_COOKIE'])) {
                     $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
@@ -61,6 +72,5 @@ class Auth extends CI_Controller
             }
             echo'Logging You out';
             redirect('../');
-
     }
 }

@@ -18,8 +18,17 @@ class Time extends CI_Controller
     public  function index(){
         $times = $this->TimesModel->get_times();
         $data['date_id'] = $this->input->post('dateid');
-        $data['admin'] = $this->input->post('admin');
-        $data['times'] = $this->mark_disabled_times($times, $data['date_id']);
+        $data['admin']= 0;
+        if($this->input->post('admin') == 'true'){
+            $data['admin'] = true;
+            if(!empty($this->list_taken_times($times, $data['date_id']))){
+                $data['times'] = $this->list_taken_times($times, $data['date_id']);
+            }
+
+        }
+        else{
+            $data['times'] = $this->mark_disabled_times($times, $data['date_id']);
+        }
         $this->load->view('Times',$data);
     }
 
@@ -47,7 +56,22 @@ class Time extends CI_Controller
             }
 
        return  $array;
-
-
     }
-}
+
+    public function list_taken_times($times, $date_id){
+        $i=0;
+        foreach ($times as $t => $time) {
+                if($time_taken = $this->TimesModel->getAdminTimes($time->id, $date_id)) {
+                    $array[$t]['time'] =  date('h:i A', strtotime($time->time));
+                    $array[$t]['name'] = $time_taken[$i]->name;
+                    $array[$t]['phone'] = $time_taken[$i]->phone;
+                    $array[$t]['notes'] = $time_taken[$i]->notes;
+                    $array[$t]['email'] = $time_taken[$i]->email;
+
+                    $i++;
+                }
+        }
+       if (!empty($array)){ return $array;}
+
+        }
+    }

@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php
 
     if(  $admin ){
-        echo'<div class="login">logged in as '.$admin[0]['username'].'<form action="/Auth/logout" method="post"><input type="submit" value="Logout"></form></div>';
+        echo'<div class="login">logged in as <b>'.$admin[0]['username'].'</b><form action="/Auth/logout" method="post"><input type="submit" value="Logout"></form></div>';
         echo'<script type="application/javascript" src="'. base_url().'js/admin_script.js"></script>';
     }
     else echo'<script type="application/javascript" src="'. base_url(). 'js/script.js"></script>';
@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 </table><div id="info-area" class="container" style="">
-        <h1>Select a date:</h1>
+        <h1>Select a date and time:</h1>
         <div class="" id ="times"></div>
 
         <div class="form-group" id="info" style="display: none;

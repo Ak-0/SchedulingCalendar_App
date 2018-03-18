@@ -11,7 +11,10 @@ class Calendar extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('cookie');
 
+
     }
+    protected $year= '2018';
+
     /**
      * Index Page for this controller.
      *
@@ -27,14 +30,15 @@ class Calendar extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index($year = '2018', $admin = null)
+    public function index($admin = null)
     {
         $month = date('Y-m-d');
-        $days = $this->CalendarModel->get_month($month,$year);
+        $days = $this->CalendarModel->get_month($month,$this->year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;
         $data['admin'] = $admin ;
         $data['controller']=$this;
+        $data['admin'] = $admin;
         $this->load->view('Calendar', $data);
 
     }
@@ -65,7 +69,7 @@ class Calendar extends CI_Controller {
     }
 
 
-    public function month($month, $year = 2018){
+    public function month($month){
 
         if($month = $this->uri->segment('2')){
 
@@ -73,10 +77,10 @@ class Calendar extends CI_Controller {
             $month = $month->format('Y-m-d');
         }
 
-        $days = $this->CalendarModel->get_month($month,$year);
+        $days = $this->CalendarModel->get_month($month,$this->year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;
-        $data['admin'] = $this->getAdmin();
+        $data['admin'] = $this->verify_login();
         $data['controller']=$this;
         $this->load->view('Calendar', $data);
 
@@ -85,16 +89,11 @@ class Calendar extends CI_Controller {
 
     public function admin(){
 
-
         if($admin = $this->verify_login()) {
-           $this->index('2018', $admin);
+           $this->index( $admin );
        }
        else echo 'error';
 
-    }
-
-    public function getAdmin(){
-        return $this->verify_login();
     }
 
 

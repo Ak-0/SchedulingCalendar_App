@@ -18,7 +18,10 @@ class TimesModel extends CI_Model
         $disabled = $this->db->query("SELECT id_time FROM info WHERE id_time LIKE ".trim($timeid)." AND id_date LIKE ".trim($dateid));
         return $disabled->result();
     }
-
+    public function getAdminTimes($timeid, $dateid){
+        $adminTimes= $this->db->query("SELECT * FROM info WHERE id_time LIKE ".trim($timeid)." AND id_date LIKE ".trim($dateid));
+        return $adminTimes->result();
+    }
     /*The get_Date method should return the current time if the selected date is today's date.
         this is used by the Time controller to mark past times as disabled.
     */
