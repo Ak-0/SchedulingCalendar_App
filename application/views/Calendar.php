@@ -139,17 +139,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="form-group" id="info" style="display: none;
     position: relative;"><br>
-            <p><br><Br></p><h2>Please fill the following info:</h2>
+            <p><br><Br></p><h1>Please fill the following info:</h1>
             <form action="/info" method="post">
-                <div class="" id ="times"></div><br>
+                <div class="" id ="times"></div>
                 <input type="hidden" name="day" id="<?php $date_id?>">
                 <input type="hidden" name="time" required>
                 <input type="text" required="required" name="name" class="form-item" placeholder="Your Name"><br>
-                <input type="tel" required="required" name="phone" max="14" maxlength="14" class="phone form-item" placeholder="Phone Number"><br>
+                <input type="tel" required="required" name="phone" max="14" maxlength="14" class="phone form-item" placeholder="Phone Number">
                 <input type="email" required="required" name="email" class="form-item" placeholder="E-Mail"><br>
 
-                <input name="event_date" class="form-item" type="text" placeholder="Date of Event: " id ="datepicker"><br>
-                <select name="notes" required="required" class="form-item"><br>
+                <input name="event_date" class="form-item" type="text" placeholder="Date of Event: " id ="datepicker">
+                <select  name="notes" required="required" class="form-item">
                     <option value= "" selected disabled hidden>--- Describe your inquiry ---</option>
                     <option>Bridal Bouquet</option>
                     <option>Bridesmaid bouquets</option>

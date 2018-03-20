@@ -72,13 +72,23 @@ p.footer {
     background-color: whitesmoke;
 }
 
-table, td{
+ table.dates, table.dates > tbody > tr > td{
     border-style: groove;
     border-radius: 4.2px;
     padding: 4px;
     height: 29px;
     min-width: 45px;
 
+}
+tr > td{
+    border-radius: 4.2px;
+    padding: 4px;
+
+}
+table.dates > thead > tr >td{
+    background-color: lightgoldenrodyellow;
+    font-weight: bolder;
+    border-bottom: 2px solid darkgrey !important;
 }
 table.admin_times tr:hover {
     background: lightgray;
@@ -112,7 +122,7 @@ table.dates{
     left: 40%;
 }
 
-@media screen and (max-width: 1250px){
+@media screen and (max-width: 1200px){
     #info-area{
         position: unset !important;
         float:unset !important;

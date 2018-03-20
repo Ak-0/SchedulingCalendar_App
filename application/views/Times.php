@@ -28,7 +28,7 @@ if ($admin){
             echo'</table>';
         }
 else {
-    echo '<select class="form-item" name="time_slots" required>';
+    echo '<select style="width: 220px;margin-right: 10px;" class="form-item" name="time_slots" required>';
     echo "<option value='' selected disabled hidden>Select an Available Time</option>";
 
     foreach ($times as $t => $time) {
