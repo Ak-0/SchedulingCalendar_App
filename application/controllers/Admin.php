@@ -21,12 +21,17 @@ class Admin extends CI_Controller
 
     public function index()
     {
+        if ($this->session->username && $this->session->password ) {
 
+        redirect('../Calendar/admin');
+        }
+        else{
         $this->load->view('AdminLogin');
+        }
 
     }
 
-    public function main(){
+    public function mark(){
 
 
 

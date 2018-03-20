@@ -52,6 +52,8 @@ table.admin_times tr  td{
 #body {
     background-color: whitesmoke;
     margin: 0 10px 0 10px;
+    min-height: 750px !important;
+
 }
 
 p.footer {
@@ -71,23 +73,21 @@ p.footer {
 }
 
 table, td{
-    border: 1px solid black;
     border-style: groove;
     border-radius: 4.2px;
-    min-width:50px;
     padding: 4px;
-    height:50px;
+
 }
-#times table tr:hover {
+table.admin_times tr:hover {
     background: lightgray;
 }
-#times table td{
+/*#times table td{
     padding:0px;
     height: 30px;
     min-width: 30px;
     border-radius: 0px;
-}
-tr td:hover, .selected{
+}*/
+table.dates tr td:hover, .selected{
     background-color: darkgray;
     cursor: pointer;
     text-decoration: underline;
@@ -103,7 +103,7 @@ tr td:hover, .selected{
 #info-area{
     float:right;
     position: absolute;
-    top: 70px;
+    top: 10%;
     left: 40%;
 }
 
@@ -128,4 +128,13 @@ thead td:hover{
     border: 1px solid lightgray;
     border-radius: 5px;
     margin: 5px;
+   width: 200px;
+}
+#times{
+    position: relative;
+    float: left;
+    margin-bottom:-2px;
+}
+.admin_times{
+    margin: 70px auto;
 }

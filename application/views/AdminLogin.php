@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Welcome to CodeIgniter</title>
+    <title>GlobalRose Support  Scheduling</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
 
     <link rel="stylesheet" href="<?php echo base_url().'css/style.css'?>">
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <tr>       <td>User:</td><td> <input type="text" required name="user" class="form-item"></input>
             </td></tr><tr>      <td>Password:</td><td>  <input type="password" required name="pass" class="form-item"></input>
                     </td></tr></table>
-                <input type="submit" value="Login">
+                <input class="form-item" type="submit" value="Login">
             </form>
 
     </div>

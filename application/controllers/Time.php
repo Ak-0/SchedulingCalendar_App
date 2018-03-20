@@ -61,17 +61,28 @@ class Time extends CI_Controller
     public function list_taken_times($times, $date_id){
         $i=0;
         foreach ($times as $t => $time) {
-                if($time_taken = $this->TimesModel->getAdminTimes($time->id, $date_id)) {
-                    $array[$t]['time'] =  date('h:i A', strtotime($time->time));
-                    $array[$t]['name'] = $time_taken[$i]->name;
-                    $array[$t]['phone'] = $time_taken[$i]->phone;
-                    $array[$t]['notes'] = $time_taken[$i]->notes;
-                    $array[$t]['email'] = $time_taken[$i]->email;
+                if($this->TimesModel->getAdminTimes($time->id, $date_id)) {
+                    $time_taken[$i] = $this->TimesModel->getAdminTimes($time->id, $date_id);
+                    $time_taken[$i]['time'] =  date('h:i A', strtotime($time->time));
+                    //$array[$t]['name'] = $time_taken[$i]->name;
+                    //$array[$t]['phone'] = $time_taken[$i]->phone;
+                    //$array[$t]['notes'] = $time_taken[$i]->notes;
+                    //$array[$t]['email'] = $time_taken[$i]->email;
 
                     $i++;
                 }
-        }
-       if (!empty($array)){ return $array;}
+
+               // if(!empty($time_taken)){var_dump($time_taken);};
+
+        }//var_dump($array);
+       if (!empty($time_taken)){ return $time_taken;}
 
         }
+
+        public function admin_mark_done(){
+                $dateid = $this->uri->segment('3');
+                $timeid = $this->uri->segment('4');
+                echo $dateid . $timeid;
+        }
+
     }

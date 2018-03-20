@@ -13,19 +13,43 @@ class Info extends CI_Controller
 
     }
 
-    public  function index(){
+    public  function index($status = ''){
             $day = $this->input->post('day');
-            $time = $this->input->post('time');
             $info['name'] = $this->input->post('name');
             $info['phone'] = $this->input->post('phone');
             $info['notes'] = $this->input->post('notes');
             $info['email'] = $this->input->post('email');
             $info['ip'] = $this->input->ip_address();
+            $event_date = $this->input->post('event_date');
+           if ( !empty($event_date)) {
+               if (!$event_date = date("jS F, Y", strtotime($event_date))) {
+                   $status = 'error';
+               }
+           }
 
-        $status = $this->InfoModel->makeRelation($day, $time, $info);
+            $time = $this->input->post('time');
 
-                $this->load->view($status);
+            foreach ($info as $item){
+                if(empty($item)){
+                    $status = 'error';
+                }
+            }
 
+            if($status === 'error' || !is_numeric($time) || !is_numeric($day)){
+                $status = 'error';
+            }
+            else {
+                $status = $this->InfoModel->makeRelation($day, $time, $info, $event_date);
+            }
+
+
+            if($status === 'error'){$this->load->view($status);}
+            else{
+                $data['day'] = $this->InfoModel->formatOfTimes($day,$time)['date'];
+                $data['time'] = $this->InfoModel->formatOfTimes($day,$time)['time'];
+                $data['event_date'] = $event_date?$event_date:'N/A';
+                $this->load->view($status, $data);
+            }
     }
 
 

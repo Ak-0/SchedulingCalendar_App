@@ -1,12 +1,10 @@
 $( document ).ready(function() {
     console.log("times loaded");
 
-    $('td.time').on("click", function () {
+    $('[name="time_slots"]').on("change", function () {
         if (!($(this).hasClass('disabled'))) {
             console.log("clicked time");
-            $('td.time').removeClass('selected');
-            $(this).addClass('selected');
-            var timeid = $(this).attr('id');
+            var timeid = $('select option:selected').attr('value');
             $("input[name='time']").attr('value', timeid);
         }
     });

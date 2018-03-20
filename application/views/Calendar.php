@@ -7,14 +7,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Globalrose - Scheduling App</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="<?php echo base_url().'css/style.css'?>">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+    </script>
     <?php
 
     if(  $admin ){
-        echo'<div class="login">logged in as <b>'.$admin[0]['username'].'</b><form action="/Auth/logout" method="post"><input type="submit" value="Logout"></form></div>';
+        echo'<div class="login"><form action="/Auth/logout" method="post"><input type="submit" class="form-item" value="'.$admin[0]['username'].' Logout"></form></div>';
         echo'<script type="application/javascript" src="'. base_url().'js/admin_script.js"></script>';
     }
-    else echo'<script type="application/javascript" src="'. base_url(). 'js/script.js"></script>';
-?>
+    else {
+        echo '<script type="application/javascript" src="' . base_url() . 'js/script.js"></script>';
+        echo '<div class="login"><form action="/admin" method="post"><input type="submit" value="Login" class="form-item"></form></div>';
+    }?>
 </head>
 <body>
 
@@ -22,7 +31,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <h1><img src="<?php echo base_url().'/imgs/logo-globalrose-tm.png'?>"></h1>
 
     <div id="body">
-<table>
+        <?php if ($admin){ echo ' <h1>Active appointments</h1>';}
+        else{ echo ' <h1>Select Your Desired Date For Phone Support</h1>';} ?>
+
+        <table class="dates">
     <thead class="month-heading">
     <?php
     function add_or_sub_months($month,$addorsub)
@@ -105,24 +117,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 </table><div id="info-area" class="container" style="">
-        <h1>Select a date and time:</h1>
-        <div class="" id ="times"></div>
+<?php if($admin){echo '<div class="" id ="admin_list_times"></div>';
+}
+    ?>
 
         <div class="form-group" id="info" style="display: none;
     position: relative;"><br>
-            <h1>Please Fill out the following info:</h1>
+            <p><br><Br></p><h2>Please fill the following info:</h2>
             <form action="/info" method="post">
+                <div class="" id ="times"></div><br>
                 <input type="hidden" name="day" id="<?php $date_id?>">
-                <input type="hidden" name="time">
-                <input type="text" required name="name" class="form-item" placeholder="Name">
-                <input type="number" required name="phone" class="form-item" placeholder="Phone Number"><br>
-                <input type="email" required name="email" class="form-item" placeholder="E-Mail">
-                <select name="notes" required class="form-item" value="Describe your inquiry">
-                    <option disabled selected>--- Select an Item ---</option>
-                     <option>Bridal Bouquet</option>
+                <input type="hidden" name="time" required>
+                <input type="text" required="required" name="name" class="form-item" placeholder="Name"><br>
+                <input type="tel" required="required" name="phone" class="form-item" placeholder="Phone Number"><br>
+                <input type="email" required="required" name="email" class="form-item" placeholder="E-Mail"><br>
+
+                <input name="event_date" class="form-item" type="text" placeholder="Date of Event: " id ="datepicker"><br>
+                <select name="notes" required="required" class="form-item"><br>
+                    <option value= "" selected disabled hidden>--- Describe your inquiry ---</option>
+                    <option>Bridal Bouquet</option>
                     <option>Bridesmaid bouquets</option>
                     <option>Corsages</option>
                     <option>Centerpieces</option>
+                    <option>Other, etc....</option>
+
                 </select>
                 <br>
                 <button type="submit" class="form-item">Submit</button>

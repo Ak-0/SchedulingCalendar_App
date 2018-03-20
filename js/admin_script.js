@@ -7,7 +7,7 @@ $( document ).ready(function() {
             $('td.day').removeClass('selected');
             $(this).addClass('selected');
             var dateid = $(this).attr('id');
-            $('#times').load('../time', {dateid: dateid, admin: true});
+            $('#admin_list_times').load('../time', {dateid: dateid, admin: true});
             //$('#info').show();
             $("input[name='day']").attr('value', dateid);
         }
