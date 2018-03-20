@@ -12,6 +12,7 @@ $( document ).ready(function() {
             $("input[name='day']").attr('value', dateid);
         }
     });
+
 });
 
 

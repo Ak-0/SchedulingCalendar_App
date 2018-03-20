@@ -18,6 +18,7 @@ class TimesModel extends CI_Model
         $disabled = $this->db->query("SELECT id_time FROM info WHERE id_time LIKE ".trim($timeid)." AND id_date LIKE ".trim($dateid));
         return $disabled->result();
     }
+
     public function getAdminTimes($timeid, $dateid){
         $adminTimes= $this->db->query("SELECT * FROM info WHERE id_time LIKE ".trim($timeid)." AND id_date LIKE ".trim($dateid));
         return $adminTimes->result();
@@ -37,6 +38,14 @@ class TimesModel extends CI_Model
         }
     }
 
+    public  function markDone($dateid, $timeid){
+
+        if($this->db->simple_query("UPDATE info SET done = 1 WHERE id_date =".trim($dateid)." AND id_time =".trim($timeid))){
+            return true;
+        }
+        else{ return false;}
+
+    }
 
 
 }

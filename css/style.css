@@ -47,7 +47,7 @@ background-color: lightgoldenrodyellow;
 }
 table.admin_times tr  td{
     border: 0px !important;
-    padding: 7px !important;
+    padding: 4px !important;
 }
 #body {
     background-color: whitesmoke;
@@ -87,17 +87,17 @@ table.admin_times tr:hover {
     min-width: 30px;
     border-radius: 0px;
 }*/
-table.dates tr td:hover, .selected{
+table.dates tr td.day:hover, .selected{
     background-color: darkgray;
     cursor: pointer;
-    text-decoration: underline;
-    color: #0d6aad;
+    text-decoration: blink;
+    color: #f0f0f0;
 
 }
-.disabled, .disabled:hover{
-    background-color: lightgray;
+.disabled, .disabled:hover, a.disabled{
+    background-color: lightgray !important;
     cursor: not-allowed !important;
-    color: unset;
+    color: whitesmoke !important;
     text-decoration: unset;
 }
 #info-area{
@@ -136,5 +136,5 @@ thead td:hover{
     margin-bottom:-2px;
 }
 .admin_times{
-    margin: 70px auto;
+    margin: 80px auto;
 }

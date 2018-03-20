@@ -15,9 +15,12 @@ class Time extends CI_Controller
 
     }
 
-    public  function index(){
+    public  function index($dateid = null){
         $times = $this->TimesModel->get_times();
-        $data['date_id'] = $this->input->post('dateid');
+        if($dateid === null) {
+            $data['date_id'] = $this->input->post('dateid');
+        }
+        else{$data['date_id'] = $dateid;}
         $data['admin']= 0;
         if($this->input->post('admin') == 'true'){
             $data['admin'] = true;
@@ -64,6 +67,7 @@ class Time extends CI_Controller
                 if($this->TimesModel->getAdminTimes($time->id, $date_id)) {
                     $time_taken[$i] = $this->TimesModel->getAdminTimes($time->id, $date_id);
                     $time_taken[$i]['time'] =  date('h:i A', strtotime($time->time));
+
                     //$array[$t]['name'] = $time_taken[$i]->name;
                     //$array[$t]['phone'] = $time_taken[$i]->phone;
                     //$array[$t]['notes'] = $time_taken[$i]->notes;
@@ -82,7 +86,10 @@ class Time extends CI_Controller
         public function admin_mark_done(){
                 $dateid = $this->uri->segment('3');
                 $timeid = $this->uri->segment('4');
-                echo $dateid . $timeid;
+                if($this->TimesModel->markDone($dateid,$timeid)) {
+                    $this->index($dateid);
+                }
+                else echo 'error';
         }
 
     }
