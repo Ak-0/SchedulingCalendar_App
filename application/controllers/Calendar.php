@@ -75,8 +75,9 @@ class Calendar extends CI_Controller {
 
             $month = new DateTime('2018-'.$month.'-01');
             $month = $month->format('Y-m-d');
-        }
+            $data['month_changed']=true;
 
+        }
         $days = $this->CalendarModel->get_month($month,$this->year);
         $data['weeks'] = $this->get_weeks($days);
         $data['month'] = $month;

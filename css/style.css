@@ -76,6 +76,8 @@ table, td{
     border-style: groove;
     border-radius: 4.2px;
     padding: 4px;
+    height: 29px;
+    min-width: 45px;
 
 }
 table.admin_times tr:hover {
@@ -93,6 +95,9 @@ table.dates tr td.day:hover, .selected{
     text-decoration: blink;
     color: #f0f0f0;
 
+}
+table.dates{
+    border:0px;
 }
 .disabled, .disabled:hover, a.disabled{
     background-color: lightgray !important;
@@ -137,4 +142,7 @@ thead td:hover{
 }
 .admin_times{
     margin: 80px auto;
+}
+#admin_list_times{
+    overflow-x: auto;
 }

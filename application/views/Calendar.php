@@ -31,8 +31,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <h1><img src="<?php echo base_url().'/imgs/logo-globalrose-tm.png'?>"></h1>
 
     <div id="body">
-        <?php if ($admin){ echo ' <h1>Active appointments</h1>';}
-        else{ echo ' <h1>Select Your Desired Date For Phone Support</h1>';} ?>
+        <?php if ($admin){
+            if (monthIsToday($month)){echo "<span hidden id='month_current'></span>";}
+
+            echo ' <h1>Active appointments</h1>';}
+        else{
+            echo ' <h1>Select Your Desired Date For Phone Support</h1>';
+        } ?>
 
         <table class="dates">
     <thead class="month-heading">
@@ -52,16 +57,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     function current_month($month){
         return date('F',strtotime($month));
     }
+    function monthIsToday($month){
+        $thismonth = new DateTime('now',new DateTimeZone('America/New_York'));
+        $thismonth = date('F', $thismonth->getTimestamp());
+        $month = date('F', strtotime($month));
+        if ($thismonth == $month){
+            return true;
+        }
+        else return false;
+
+    }
     ?>
             <td colspan="7" style="height:40px;">
                 <span style="clear: none"><a href="<?php echo '/month/'.add_or_sub_months($month,'sub');?>"> &lt; Previous </a></span>
-                <span style="margin: 0 auto;position: relative;text-align: center;left: 30%; font-weight: bolder;"><?php echo current_month($month);?></span>
+                <span style="margin: 0 auto;position: relative;text-align: center;left: 25%; font-weight: bolder;font-size: larger;"><?php echo current_month($month);?></span>
                 <span style="float: right;"><a href="<?php echo '/month/'.add_or_sub_months($month,'plus');?>"> Next &gt;</a></span>     </thead>
     <tr>
-        <th>Monday</th>   <th>Tuesday</th>    <th>Wedsday</th>   <th>Thursday</th>   <th>Friday</th>   <th>Saturday</th>   <th>Snuday</th>
+        <th>MON</th>   <th>TUES</th>    <th>WEND</th>   <th>THURS</th>   <th>FRI</th>   <th>SAT</th>   <th>SUN</th>
     </tr>
     <tr>
 <?php
+
     foreach($weeks as $w=>$week){
         foreach($week as $k=>$day) {
             $dayid = $day['id'];
@@ -150,7 +166,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
-    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
 
 </body>

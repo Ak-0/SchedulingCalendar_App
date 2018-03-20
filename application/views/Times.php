@@ -14,6 +14,7 @@ else echo'<script type="application/javascript" src="'. base_url().'js/times.js"
 
 if ($admin){
         if(!empty($times)) {
+            echo '<span hidden name="today" id="'.$date_id.'"></span>';
             echo '<table class="admin_times">';
             echo '<tr><thead><td>Done</td><td>Time</td><td>Name</td><td>Phone</td><td>Item</td><td>Email</td><td>EventDate</td></thead></tr>';
             foreach ($times as $t => $time) {
@@ -28,7 +29,7 @@ if ($admin){
         }
 else {
     echo '<select class="form-item" name="time_slots" required>';
-    echo "<option value='' selected disabled hidden>--- Select a Time ---</option>";
+    echo "<option value='' selected disabled hidden>Select an Available Time</option>";
 
     foreach ($times as $t => $time) {
         $disabled = $time['disabled'] ? ' disabled' : '';

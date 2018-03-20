@@ -21,7 +21,6 @@ class Auth extends CI_Controller
 
         //query db for login info
            if( $query = $this->db->query("SELECT * FROM users WHERE username = '" . $user . "' AND passwd = '" . $pass . "'")->result()) {
-               var_dump($query);
                 $row = $query[0];
         //cmpare  to post the db user and pass
             if ($user === $row->username  && $pass  === $row->passwd) {
@@ -40,6 +39,9 @@ class Auth extends CI_Controller
                 echo "Logged in as " . $user;
                 redirect('/Calendar/admin');            }
 
+            else {
+                print"IN CORRECT LOGIN DATA";
+            }
            }
            else {
                print "not logged in";

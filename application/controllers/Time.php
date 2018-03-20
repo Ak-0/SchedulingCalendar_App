@@ -15,15 +15,24 @@ class Time extends CI_Controller
 
     }
 
-    public  function index($dateid = null){
+    public  function index($dateid = null, $mark= null){
         $times = $this->TimesModel->get_times();
-        if($dateid === null) {
+        if($this->input->post('dateid')) {
             $data['date_id'] = $this->input->post('dateid');
+            $data['admin']= $this->input->post('admin');
+
         }
-        else{$data['date_id'] = $dateid;}
-        $data['admin']= 0;
-        if($this->input->post('admin') == 'true'){
+        elseif ($mark === 'true'){
+            $data['date_id'] = $dateid;
             $data['admin'] = true;
+        }
+        elseif($this->input->post('admin')){
+            $data['date_id'] = $this->getToday();
+            $data['admin'] = true;
+
+        }
+
+        if($data['admin'] == true){
             if(!empty($this->list_taken_times($times, $data['date_id']))){
                 $data['times'] = $this->list_taken_times($times, $data['date_id']);
             }
@@ -35,6 +44,12 @@ class Time extends CI_Controller
         $this->load->view('Times',$data);
     }
 
+    public function getToday(){
+        $today1 = new DateTime('now',new DateTimeZone('America/New_York'));
+        $today = date('Y-m-d', $today1->getTimestamp());
+        $currentday = $this->TimesModel->getToday($today);
+        return $currentday;
+    }
 
 
     /* The mark_disabled_times function will return a 'one' for true that the time is disabled. To the view.
@@ -84,10 +99,11 @@ class Time extends CI_Controller
         }
 
         public function admin_mark_done(){
+                $mark = $this->input->post('mark');
                 $dateid = $this->uri->segment('3');
                 $timeid = $this->uri->segment('4');
                 if($this->TimesModel->markDone($dateid,$timeid)) {
-                    $this->index($dateid);
+                    $this->index($dateid, $mark);
                 }
                 else echo 'error';
         }
