@@ -150,11 +150,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <input name="event_date" class="form-item" type="text" placeholder="Date of Event: " id ="datepicker">
                 <select  name="notes" required="required" class="form-item">
-                    <option value= "" selected disabled hidden>--- Describe your inquiry ---</option>
-                    <option>Bridal Bouquet</option>
-                    <option>Bridesmaid bouquets</option>
+                    <option value= "" selected disabled hidden>Describe your Occassion</option>
+                    <option>Wedding</option>
+                    <option>Funeral</option>
                     <option>Corsages</option>
-                    <option>Centerpieces</option>
+                    <option>Party</option>
                     <option>Other, etc....</option>
 
                 </select>
