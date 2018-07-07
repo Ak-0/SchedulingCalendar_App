@@ -22,7 +22,7 @@ class Info extends CI_Controller
             $info['ip'] = $this->input->ip_address();
             $event_date = $this->input->post('event_date');
            if ( !empty($event_date)) {
-               if (!$event_date = date("jS F, Y", strtotime($event_date))) {
+               if (!$event_date = date("j F, Y", strtotime($event_date))) {
                    $status = 'error';
                }
            }

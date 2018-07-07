@@ -54,5 +54,14 @@ class TimesModel extends CI_Model
 
     }
 
+    public function delApptmt($timeid, $dateid){
+        $delete = $this->db->query("DELETE FROM info WHERE id_date = ".$dateid." AND id_time= ".$timeid.";");
+        return $delete?true:false;
+    }
+    public function editApptmt($timeid, $dateid,  $fields){
+        $this->db->where('id_time', $timeid);
+        $this->db->where('id_date', $dateid);
+        return $this->db->update('info',$fields);
 
+    }
 }

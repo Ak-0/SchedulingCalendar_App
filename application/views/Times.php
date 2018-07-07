@@ -16,11 +16,29 @@ if ($admin){
         if(!empty($times)) {
             echo '<span hidden name="today" id="'.$date_id.'"></span>';
             echo '<table class="admin_times">';
-            echo '<tr><thead><td>Done</td><td>Time</td><td>Name</td><td>Phone</td><td>Item</td><td>Email</td><td>EventDate</td></thead></tr>';
+            echo '<tr><thead><td>Done</td><td>Time</td><td>Name</td><td>Phone</td><td>Notes</td><td>Email</td><td>EventDate</td><td>Edit</td><td>Delete</td></thead></tr>';
             foreach ($times as $t => $time) {
-                $disabled = $time[0]->done ? ' disabled' : '';
-                echo '<tr class="'.$disabled.'"><td><a '.$disabled.' class="'.$disabled.' mark-done" id="'.$time[0]->id_date.'" value="'.$time[0]->id_time.'" href="#"><i style="font-size: x-large;color: #4e4a4a;" class="fa fa-check-square-o"></i>
-                       </a></td><Td class="time" id="' . ($t + 1) . '">'  .$time['time'] . ' </td><td> ' . $time[0]->name .' </td><td> ' . $time[0]->phone . ' </td><td> '. $time[0]->notes . ' </td><td> '.$time[0]->email . '</td><td> '.$time[0]->event_date . '</td></tr>';
+                $disabled = isset($time[0]->done) ? ' disabled' : '';
+                echo '<tr class="'.$disabled.'">
+                       <td class="no-edit mark-done">
+                      <a '.$disabled.' class="'.$disabled.' mark-done" id="'.$time[0]->id_date.'" value="'.$time[0]->id_time.'" href="#">
+                      <i style="font-size: x-large;color: #4e4a4a;" class="fa fa-check"></i>
+                       </a></td>
+                       <Td name="id_time" class="no-edit time" id="'.$time[0]->id_time . '">'  .$time['time'] . ' </td>
+                       <td name="name"> ' . $time[0]->name .' </td><td name="phone"> ' . $time[0]->phone . ' </td>
+                       <td name="notes"> '. $time[0]->notes . ' </td><td name="email"> '.$time[0]->email . '</td>
+                       <td name="event_date" id="cell-'.$t.'" value="'.$time[0]->id_date.'"> '.$time[0]->event_date . '</td>
+                       <td class="no-edit" >
+                       <a '.$disabled.' class="'.$disabled.' edit-apptmt" id="'.$time[0]->id_date.'" value="'.$time[0]->id_time.'" href="#">
+                       <i style="font-size: x-large;color: #4e4a4a;" class="fa fa-edit"></i></td>
+                       </a>
+                       <td class="no-edit ">
+                       <a '.$disabled.' class="no-edit '.$disabled.'" href="'.base_url().'Time/delApptmt/'.$time[0]->id_time.'/'.$time[0]->id_date.'">
+                       <i style="font-size: x-large;color: #d0d;" class="fa fa-trash-o"></i></td>
+                       </a>
+                       </tr>
+                       
+                       ';
 
             }
         }

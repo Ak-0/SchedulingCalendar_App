@@ -15,7 +15,7 @@ class Time extends CI_Controller
 
     }
 
-    public  function index($dateid = null, $mark= null){
+    public  function index($dateid = null, $mark= ''){
         $times = $this->TimesModel->get_times();
         if($this->input->post('dateid')) {
             $data['date_id'] = $this->input->post('dateid');
@@ -33,8 +33,9 @@ class Time extends CI_Controller
         }
 
         if($data['admin'] == true){
-            if(!empty($this->list_taken_times($times, $data['date_id']))){
-                $data['times'] = $this->list_taken_times($times, $data['date_id']);
+            $taken_times = $this->list_taken_times($times, $data['date_id']);
+            if(!empty($taken_times)){
+                $data['times'] = $taken_times;
             }
 
         }
@@ -75,6 +76,17 @@ class Time extends CI_Controller
 
        return  $array;
     }
+    public function getTimes()
+    {
+        $ids = [];
+        $times = [];
+        foreach ($this->TimesModel->get_times() as $time){
+            array_push($ids,$time->id);
+            array_push($times, date('g:i A',strtotime($time->time)));
+        }
+        $result = array_combine($ids,$times);
+        echo json_encode($result);
+    }
 
     public function list_taken_times($times, $date_id){
         $i=0;
@@ -108,4 +120,24 @@ class Time extends CI_Controller
                 else echo 'error';
         }
 
+        public function delApptmt($timeid, $dateid)
+        {
+            if (!empty($timeid) && !empty($dateid)){
+               $dateid = $this->TimesModel->delApptmt($timeid,$dateid);
+               return $dateid?true:false;
+            }
+        }
+
+    public function editInfo()
+    {
+        $dateid = $this->input->post('dateid');
+        $timeid = $this->input->post('timeid');
+        $fields = $this->input->post('fields');
+        if (!empty($timeid) && !empty($dateid) && is_numeric($timeid) && is_numeric($dateid)){
+            $result = $this->TimesModel->editApptmt($timeid,$dateid,$fields);
+        }
+        echo $result?'<div class="btn-success">Successfully Edited Appointment.</div>':'<div class="btn-warning warning">Could Not Successfully Edit Appointment.</div>';
+
     }
+
+}
