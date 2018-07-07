@@ -110,6 +110,11 @@ class Time extends CI_Controller
 
         }
 
+        public function get_disabled_times_ajax($date_id ){
+			$disabled_times = $this->TimesModel->getDisabled($date_id);
+			echo json_encode(array_column($disabled_times,'id_time'));
+		}
+
         public function admin_mark_done(){
                 $mark = $this->input->post('mark');
                 $dateid = $this->uri->segment('3');

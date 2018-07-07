@@ -12,18 +12,24 @@ $( document ).ready(function() {
 
     });
 */
-function selector(timeid,current,response) {
+function selector(timeid,current,response, dateid) {
     var selecthtml = $("<select id='times_select'>");
     var selected = '';
-    $.each(response, function(key,valueObj){
-        if(key === timeid){
-            selected = 'selected';
-        }
-        $(selecthtml).append($('<option '+selected+'></option>').val(key).html(valueObj));
-        selected ='';
-    });
-    $(selecthtml).append("</select> ");
+    var disabled = '';
+	 $.get('Time/get_disabled_times_ajax/'+dateid, function (disabled_times) {
+		disabled_times = JSON.parse(disabled_times);
+	$.each(response, function(key,valueObj){
+		if(key === timeid){selected = 'selected';}
+		is_in = $.inArray(key,disabled_times);
+		console.log(is_in);
+		if (is_in != '-1'){disabled = 'disabled = "true"';}
+		else{disabled = '';}
+		$(selecthtml).append($('<option '+disabled+ ' ' +selected+'></option>').val(key).html(valueObj));
+		selected ='';
+	});
+	$(selecthtml).append("</select> ");
     $(current).html(selecthtml);
+	 });
 }
 
         $('#times_select').change( function () {
@@ -57,7 +63,7 @@ function selector(timeid,current,response) {
                 $(this).removeClass('fa-edit');
                 $(this).removeClass('fa-check-square-o');
                 $(this).addClass('fa-check-square-o');
-                selector(timeid, current,response);
+                selector(timeid, current,response,dateid);
                 $(this).attr('style','color: limegreen; font-size:2em;');
                 var do_edit = true;
             }

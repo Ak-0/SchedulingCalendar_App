@@ -13,6 +13,11 @@ class TimesModel extends CI_Model
         $result = $times->result();
         return $result;
     }
+
+    public function getDisabled($dateid){
+		$query = $this->db->query("SELECT id_time FROM info WHERE id_date = ".$dateid.";");
+		return $query->result_array();
+	}
     public function getToday($date)
     {
         $times = $this->db->query("SELECT id FROM dates WHERE date = '".trim($date)."'");
